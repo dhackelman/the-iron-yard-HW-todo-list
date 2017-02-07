@@ -52,13 +52,11 @@
             </footer>
         </main>
 
-    <script id="list-item-template" type='text/x-handlebars-template'>
+    <script id="list-item-template" type="text/x-handlebars-template">
       <li class='hide'>
           <article>
-              <!-- tie this to js event handler to toggle completed status -->
               <button class='check'></button>
-              <p>Finish this project!</p>
-              <!-- tie this to a js event that deletes event  -->
+              <p>{{task}}</p>
               <button class='delete'>X</button>
           </article>
       </li>
