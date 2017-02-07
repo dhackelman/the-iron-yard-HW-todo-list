@@ -28,7 +28,7 @@
     }
 
     input {
-        display: none;
+        display: block;
     }
 
     .delete {
@@ -64,6 +64,7 @@
         }
     }
 
+    // what is the .editing class for?
     .editing {
         p {
             display: none;

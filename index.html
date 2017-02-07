@@ -2,14 +2,14 @@
 <html lang='en'>
     <head>
         <meta charset='utf-8'>
-        <title>TODO List</title>
+        <title>TooDoo List</title>
 
         <meta name='description' content='A simple app to track TODO items'>
         <meta name='author' content=''>
         <meta name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'>
 
         <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300italic,400,400italic' rel='stylesheet' type='text/css'>
-
+        <link href = 'sass/main.css' rel='stylesheet' type='text/css'>
 
     </head>
     <body>
@@ -19,6 +19,9 @@
         </header>
 
         <main>
+          <!--action: The URI of a program that processes the form information. handlebars?  -->
+          <!--method: post vs get?  -->
+          <!-- action='' method='post' -->
             <form action='' method='post'>
                 <input type='text' class='new-todo' placeholder='What needs to be done?'>
             </form>
@@ -27,20 +30,19 @@
 
                 <!-- Example of a single TODO item -->
                 <!-- Note that this one is hidden on the page! -->
-                <li class='hide'>
-                    <article>
-                        <button class='check'></button>
-                        <p>[INSERT TODO TEXT HERE]</p>
-                        <button class='delete'>X</button>
-                    </article>
-                </li>
+                <!-- use handlebars to template the name and p content of all todo items  -->
+                <!-- p class items within article might need class if we are going to template them -->
+                <!-- use a block helper (each?) to update HTML  -->
 
             </ul>
 
             <footer>
+                <!-- use js to update incomplete items -->
                 <p class='remaining'><span class='incomplete-items'>0</span> items left</p>
                 <nav>
                     <ul>
+                  <!--use js to add event listeners/bind these buttons to actions  -->
+                  <!--these actions should adjust the things that browser displays, not data that exists  -->
                         <li><button class='show-all active'>All</button></li>
                         <li><button class='show-active'>Active</button></li>
                         <li><button class='show-completed'>Completed</button></li>
@@ -50,5 +52,19 @@
             </footer>
         </main>
 
+    <script id="list-item-template" type='text/x-handlebars-template'>
+      <li class='hide'>
+          <article>
+              <!-- tie this to js event handler to toggle completed status -->
+              <button class='check'></button>
+              <p>Finish this project!</p>
+              <!-- tie this to a js event that deletes event  -->
+              <button class='delete'>X</button>
+          </article>
+      </li>
+    </script>
+    <script src="js/vendors/handlebars-v4.0.5.js"></script>
+    <script src="js/vendors/jquery-3.1.1.min.js"></script>
+    <script src="js/app.js"></script>
     </body>
 </html>

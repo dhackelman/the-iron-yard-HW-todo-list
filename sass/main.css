@@ -417,7 +417,7 @@ main {
     display: inline;
     padding-left: 1em; }
   .items input {
-    display: none; }
+    display: block; }
   .items .delete {
     display: none;
     float: right;
