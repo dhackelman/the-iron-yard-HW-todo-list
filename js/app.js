@@ -3,32 +3,34 @@
   $(document).ready(() => {
 
     const todoModule = function() {
+    let itemCounter = null;
+    const todoItems = [
+      {
+        task: "",
+        id: null
+      }
+    ];
 
-      const todoItems = [
-        {
-          task: "1",
-          id: null
-        },
-        {
-          task: "2",
-          id: null
-        },
-        {
-          task: "3",
-          id: null
-        }
-      ]
-
-    function displayAllTodoItems (){
-      //nada
+    function bindEvents() {
+      clickTheX();
+      completeTheItem();
     }
 
-    function generateTemplate(toBeReplaced) {
+
+    function displayAllTodoItems(htmlArg){
+      //nada
+        $('.items').prepend(htmlArg);
+        console.log(todoItems);
+        bindEvents();
+    }
+
+    function generateTemplate(task) {
+      todoItems.push({task});
       const source = $('#list-item-template').html();
       const template = Handlebars.compile(source);
-      const context = {task: toBeReplaced};
+      const context = {task: task};
       const html = template(context);
-      console.log(html);
+      displayAllTodoItems(html);
       $('li').removeClass('hide');
 
     }
@@ -39,26 +41,36 @@
         let newListItem = {};
         newListItem.task= $('.new-todo').val();
         generateTemplate(newListItem.task);
-        todoItems.push(newListItem.task)
-        updateIncompleteCounter();
-        // displayAllTodoItems();
+        incrementCounter(true);
         $('form')[0].reset();
       });
     }
 
-    function updateIncompleteCounter() {
-      let incCounter = 0;
-      let itemLengths = todoItems.length;
-      for (let i = 0; i < itemLengths; i++) {
-        incCounter++;
+    function incrementCounter(arg) {
+        itemCounter = todoItems.length -1;
+        $('.incomplete-items').html(itemCounter);
       }
-      $('.incomplete-items').html(incCounter);
+
+    function clickTheX() {
+      $(':button').filter('.delete').on('click', function (){
+        $('li:hover').remove();
+        todoItems.pop();
+        incrementCounter();
+        console.log(todoItems);
+      });
+
     }
 
+    function completeTheItem() {
+      $(':button').filter('.check').on('click', function() {
+        $('li:hover').toggleClass('completed');
+        incrementCounter();
+        });
+    }
 
     function init() {
       retrieveFormEntry();
-      console.log(todoItems);
+
     }
 
     return {
