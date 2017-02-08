@@ -3,7 +3,7 @@
   $(document).ready(() => {
 
     const todoModule = function() {
-    let itemCounter = null;
+    let itemCounter = 100;
     const todoItems = [
       {
         task: "",
@@ -14,6 +14,11 @@
     function bindEvents() {
       clickTheX();
       completeTheItem();
+      updateDisplayActive();
+      updateDisplayCompleted();
+      updateDisplayAll();
+      clearCompleted();
+      editTheItems();
     }
 
 
@@ -31,7 +36,8 @@
       const context = {task: task};
       const html = template(context);
       displayAllTodoItems(html);
-      $('li').removeClass('hide');
+      $('.items li').removeClass('hide');
+      $('.items li').addClass('active');
 
     }
 
@@ -41,21 +47,27 @@
         let newListItem = {};
         newListItem.task= $('.new-todo').val();
         generateTemplate(newListItem.task);
-        incrementCounter(true);
+        adjustCounter();
         $('form')[0].reset();
       });
     }
 
-    function incrementCounter(arg) {
-        itemCounter = todoItems.length -1;
+    function adjustCounter(arg) {
+        if (itemCounter > 0) {
+          itemCounter = todoItems.length -1;
+        } else if (itemCounter === 0) {
+          itemCounter = 1;
+        } else {
+          itemCounter = 0;
+        }
         $('.incomplete-items').html(itemCounter);
       }
 
     function clickTheX() {
       $(':button').filter('.delete').on('click', function (){
-        $('li:hover').remove();
         todoItems.pop();
-        incrementCounter();
+        $('li:hover').remove();
+        adjustCounter();
         console.log(todoItems);
       });
 
@@ -64,9 +76,40 @@
     function completeTheItem() {
       $(':button').filter('.check').on('click', function() {
         $('li:hover').toggleClass('completed');
-        incrementCounter();
+        adjustCounter();
         });
     }
+
+    function updateDisplayActive() {
+      $(':button').filter('.show-active').on('click', function() {
+        $('.items li').removeClass('hide');
+        $('.items li.completed').addClass('hide');
+        });
+    }
+
+    function updateDisplayCompleted() {
+      $(':button').filter('.show-completed').on('click', function() {
+        $('.items li').addClass('hide');
+        $('.items li.completed').removeClass('hide');
+        });
+    }
+    function updateDisplayAll() {
+      $(':button').filter('.show-all').on('click', function() {
+        $('.items li').removeClass('hide');
+        });
+    }
+    function clearCompleted() {
+      $(':button').filter('.clear').on('click', function() {
+        $('.items li.completed').remove();
+        });
+    }
+
+    function editTheItems() {
+      $('.items p').on('click', function() {
+        $('p').attr('contenteditable', true);
+      });
+    }
+
 
     function init() {
       retrieveFormEntry();
