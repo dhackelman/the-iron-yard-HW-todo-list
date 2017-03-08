@@ -3,13 +3,13 @@
   $(document).ready(() => {
 
     const todoModule = function() {
-    let itemCounter = 100;
     const todoItems = [
       {
         task: "",
         id: null
       }
     ];
+    let itemCounter = 0;
 
     function bindEvents() {
       clickTheX();
@@ -19,6 +19,7 @@
       updateDisplayAll();
       clearCompleted();
       editTheItems();
+      retrieveFormEntry();
     }
 
 
@@ -26,7 +27,7 @@
       //nada
         $('.items').prepend(htmlArg);
         console.log(todoItems);
-        bindEvents();
+
     }
 
     function generateTemplate(task) {
@@ -52,19 +53,13 @@
       });
     }
 
-    function adjustCounter(arg) {
-        if (itemCounter > 0) {
-          itemCounter = todoItems.length -1;
-        } else if (itemCounter === 0) {
-          itemCounter = 1;
-        } else {
-          itemCounter = 0;
-        }
+    function adjustCounter() {
+
         $('.incomplete-items').html(itemCounter);
       }
 
     function clickTheX() {
-      $(':button').filter('.delete').on('click', function (){
+      $('.delete').on('click', function (){
         todoItems.pop();
         $('li:hover').remove();
         adjustCounter();
@@ -74,32 +69,32 @@
     }
 
     function completeTheItem() {
-      $(':button').filter('.check').on('click', function() {
+      $('.check').on('click', function() {
         $('li:hover').toggleClass('completed');
         adjustCounter();
         });
     }
 
     function updateDisplayActive() {
-      $(':button').filter('.show-active').on('click', function() {
+      $('.show-active').on('click', function() {
         $('.items li').removeClass('hide');
         $('.items li.completed').addClass('hide');
         });
     }
 
     function updateDisplayCompleted() {
-      $(':button').filter('.show-completed').on('click', function() {
+      $('.show-completed').on('click', function() {
         $('.items li').addClass('hide');
         $('.items li.completed').removeClass('hide');
         });
     }
     function updateDisplayAll() {
-      $(':button').filter('.show-all').on('click', function() {
+      $('.show-all').on('click', function() {
         $('.items li').removeClass('hide');
         });
     }
     function clearCompleted() {
-      $(':button').filter('.clear').on('click', function() {
+      $('.clear').on('click', function() {
         $('.items li.completed').remove();
         });
     }
@@ -112,7 +107,8 @@
 
 
     function init() {
-      retrieveFormEntry();
+      bindEvents();
+
 
     }
 
