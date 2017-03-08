@@ -48,30 +48,37 @@
         let newListItem = {};
         newListItem.task= $('.new-todo').val();
         generateTemplate(newListItem.task);
-        adjustCounter();
+        adjustCounter(true);
         $('form')[0].reset();
       });
     }
 
-    function adjustCounter() {
-
-        $('.incomplete-items').html(itemCounter);
+    function adjustCounter(arg) {
+        if (arg === true) {
+          itemCounter++;
+          $('.incomplete-items').html(itemCounter);
+        } else if (arg === false) {
+          itemCounter--;
+          $('.incomplete-items').html(itemCounter);
+        }
       }
 
     function clickTheX() {
-      $('.delete').on('click', function (){
+      $('.items').on('click', '.delete', function (){
+        // console.log('here');
         todoItems.pop();
         $('li:hover').remove();
-        adjustCounter();
+        adjustCounter(false);
         console.log(todoItems);
       });
 
     }
 
     function completeTheItem() {
-      $('.check').on('click', function() {
+      $('.items').on('click', '.check', function (){
+        // console.log('here');
         $('li:hover').toggleClass('completed');
-        adjustCounter();
+        adjustCounter(false);
         });
     }
 
@@ -108,8 +115,6 @@
 
     function init() {
       bindEvents();
-
-
     }
 
     return {

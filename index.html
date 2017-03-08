@@ -28,12 +28,6 @@
 
             <ul class='items'>
 
-                <!-- Example of a single TODO item -->
-                <!-- Note that this one is hidden on the page! -->
-                <!-- use handlebars to template the name and p content of all todo items  -->
-                <!-- p class items within article might need class if we are going to template them -->
-                <!-- use a block helper (each?) to update HTML  -->
-
             </ul>
 
             <footer>
@@ -54,11 +48,9 @@
 
     <script id="list-item-template" type="text/x-handlebars-template">
       <li class='hide'>
-          <article>
-              <button class='check'></button>
-              <p>{{task}}</p>
-              <button class='delete'>X</button>
-          </article>
+          <button class='check'></button>
+            <p>{{task}}</p>
+          <button class='delete'>X</button>
       </li>
     </script>
     <script src="js/vendors/handlebars-v4.0.5.js"></script>
