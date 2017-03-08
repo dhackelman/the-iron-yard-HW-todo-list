@@ -58,8 +58,13 @@
           itemCounter++;
           $('.incomplete-items').html(itemCounter);
         } else if (arg === false) {
-          itemCounter--;
-          $('.incomplete-items').html(itemCounter);
+          if (itemCounter > 0){
+            itemCounter--;
+            $('.incomplete-items').html(itemCounter);
+          } else {
+            itemCounter = 0;
+            $('.incomplete-items').html(itemCounter);
+          }
         }
       }
 
