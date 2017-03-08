@@ -37,9 +37,7 @@
       const context = {task: task};
       const html = template(context);
       displayAllTodoItems(html);
-      $('.items li').removeClass('hide');
-      $('.items li').addClass('active');
-
+      $('.items li').removeClass('hide').addClass('active');
     }
 
     function retrieveFormEntry() {
